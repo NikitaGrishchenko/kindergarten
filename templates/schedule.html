@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+      crossorigin="anonymous"
+    />
+
+    <title>Графики посещений</title>
+  </head>
+  <body>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+          <h1 class="m-5">Графики посещений</h1>
+        </div>
+        <div class="col-8 m-5">
+            <canvas id="chartForYonger"></canvas>
+        </div>
+        <div class="col-8 m-5">
+          <canvas id="chartForOlder"></canvas>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+
+
+
+<script>
+
+window.onload = function () {
+
+let arrayDay = []
+
+let dataForYounger = []
+let labelsForYounger = []
+let dataForOlder = []
+let labelsForOlder = []
+
+
+axios.get('http://127.0.0.1:8000/api/schedule/')
+  .then(function (response) {
+    arrayDay = response.data
+
+    for (let x = 0; x < arrayDay.length; x++){
+          if (arrayDay[x].type_group === "Y"){
+            dataForYounger.push(arrayDay[x].count_person)
+            labelsForYounger.push(arrayDay[x].date)
+          } else {
+            dataForOlder.push(arrayDay[x].count_person)
+            labelsForOlder.push(arrayDay[x].date)
+          }
+      }
+
+
+
+  var configForYonger = {
+    type: 'line',
+    data: {
+      labels: labelsForYounger,
+      datasets: [
+        {
+          label: 'Посещение Ясли',
+          backgroundColor: 'black',
+          borderColor: 'lightblue',
+          data: dataForYounger,
+          fill: false
+        }
+      ]
+    },
+    options: {
+      responsive: true
+    }
+  };
+
+  var configForOlder = {
+    type: 'line',
+    data: {
+      labels: labelsForOlder,
+      datasets: [
+        {
+          label: 'Посещение Старшая группа',
+          backgroundColor: 'black',
+          borderColor: 'lightblue',
+          data: dataForOlder,
+          fill: false
+        }
+      ]
+    },
+    options: {
+      responsive: true
+    }
+  };
+
+
+  var ctxForYonger = document.getElementById('chartForYonger').getContext('2d');
+  var ctxForOlder = document.getElementById('chartForOlder').getContext('2d');
+
+  window.myLineYonger = new Chart(ctxForYonger, configForYonger);
+  window.myLineOlder = new Chart(ctxForOlder, configForOlder);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+
+
+
+
+
+};
+</script>
+
+
+      <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+      crossorigin="anonymous"></script>
+  </body>
+</html>

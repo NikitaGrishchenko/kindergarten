@@ -30,7 +30,7 @@ SECRET_KEY = "h2*=231bcabd0gw3pe=f2ip2hr$s=dm94&*p^5cqj6kja9+@jv"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["*",]
+ALLOWED_HOSTS = ["http://berbencev-kindergarten.ru",]
 
 
 # Application definition
@@ -61,8 +61,10 @@ MIDDLEWARE = [
 ]
 CORS_ALLOWED_ORIGINS = [
     "http://berbencev-kindergarten.ru",
+    "https://berbencev-kindergarten.ru",
     "http://localhost:8080",
     "http://localhost:80",
+    "http://127.0.0.1:8080",
 ]
 CORS_ALLOW_CREDENTIALS = True
 

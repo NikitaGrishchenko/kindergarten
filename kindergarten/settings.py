@@ -59,7 +59,11 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://berbencev-kindergarten.ru",
+    "http://localhost:8080",
+    "http://localhost:80",
+]
 CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = "kindergarten.urls"

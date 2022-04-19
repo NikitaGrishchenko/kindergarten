@@ -30,7 +30,7 @@ SECRET_KEY = "h2*=231bcabd0gw3pe=f2ip2hr$s=dm94&*p^5cqj6kja9+@jv"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["http://berbencev-kindergarten.ru",]
+ALLOWED_HOSTS = ["berbencev-kindergarten.ru",]
 
 
 # Application definition
